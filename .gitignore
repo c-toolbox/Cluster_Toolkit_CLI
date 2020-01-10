@@ -1,0 +1,6 @@
+nvapi
+build
+
+# Visual studio specific things:
+.vs
+*.vcxproj.user
