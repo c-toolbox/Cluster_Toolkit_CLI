@@ -94,8 +94,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="apps\cli\main.cpp" />
+    <ClCompile Include="src\argumentparser.cpp" />
+    <ClCompile Include="src\gsync_sysinfo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\argumentparser.h" />
+    <ClInclude Include="include\gsync_sysinfo.h" />
     <ClInclude Include="include\stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

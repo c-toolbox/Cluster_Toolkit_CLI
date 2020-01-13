@@ -1,6 +1,5 @@
+#include <gsync_sysinfo.h>
 #include <nvapi.h>
-
-class GSyncSysInfo {};
 
 int main(int argc, char** argv) {
   NvAPI_Status ret = NVAPI_OK;
@@ -21,6 +20,16 @@ int main(int argc, char** argv) {
           "requires this)\n");
     }
     return -1;
+  }
+
+  toolkit::GSyncSysInfoBuilder builder;
+  std::vector<toolkit::GSyncSysInfo> sysInfos;
+  for (NvU32 i = 0; i < gsyncCount; ++i) {
+    sysInfos.push_back(
+        builder.with_gsync_device_handle(nvGSyncHandles[i]).build());
+  }
+  for (const auto& sysInfo : sysInfos) {
+    sysInfo.print();
   }
 
   return 0;
