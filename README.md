@@ -8,8 +8,8 @@ Cluster_Toolkit_CLI checks (through nvapi) if Nvidia gSync is currently enabled,
 and if it seems to be working as intended. 
 
 
-For licensing purposes, we don't include nvapi here, but refer to the Nvidia 
-developer site for download.
+For licensing purposes, we don't include nvapi here, but refer to the [Nvidia 
+developer site](https://developer.nvidia.com/nvapi) for download.
 
 
 # Build
