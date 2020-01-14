@@ -35,5 +35,8 @@
     <ClInclude Include="include\gsync_sysinfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nvapi_printer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

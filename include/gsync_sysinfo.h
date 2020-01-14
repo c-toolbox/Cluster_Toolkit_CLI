@@ -13,9 +13,11 @@ class GSyncSysInfo {
   GSyncSysInfo();
 
   void query_control_params(NvGSyncDeviceHandle device_handle);
+  void query_status_params(NvGSyncDeviceHandle device_handle);
   NV_GSYNC_CONTROL_PARAMS control_params;
   NV_GSYNC_STATUS_PARAMS status_params;
 };
+
 
 class GSyncSysInfoBuilder {
  public:

@@ -29,10 +29,24 @@ void GSyncSysInfo::query_control_params(NvGSyncDeviceHandle device_handle) {
   }
 }
 
+void GSyncSysInfo::query_status_params(NvGSyncDeviceHandle device_handle) {
+
+  NvAPI_Status ret;
+
+  status_params.version = NV_GSYNC_STATUS_PARAMS_VER;
+  ret = NvAPI_GSync_GetStatusParameters(device_handle, &status_params);
+  if (ret != NVAPI_OK) {
+    printf("Error getting gsync status params\n");
+    exit(1);
+  }
+}
+
+
 GSyncSysInfoBuilder::GSyncSysInfoBuilder() {}
 
 GSyncSysInfoBuilder& GSyncSysInfoBuilder::with_gsync_device_handle(
     NvGSyncDeviceHandle device_handle) {
+  info.query_control_params(device_handle);
   return *this;
 }
 

@@ -100,6 +100,7 @@
   <ItemGroup>
     <ClInclude Include="include\argumentparser.h" />
     <ClInclude Include="include\gsync_sysinfo.h" />
+    <ClInclude Include="include\nvapi_printer.h" />
     <ClInclude Include="include\stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

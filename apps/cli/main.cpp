@@ -1,5 +1,6 @@
 #include <gsync_sysinfo.h>
 #include <nvapi.h>
+#include <nvapi_printer.h>
 
 int main(int argc, char** argv) {
   NvAPI_Status ret = NVAPI_OK;
@@ -15,9 +16,17 @@ int main(int argc, char** argv) {
   ret = NvAPI_GSync_EnumSyncDevices(nvGSyncHandles, &gsyncCount);
   if (ret != NVAPI_OK) {
     if (ret == NVAPI_NVIDIA_DEVICE_NOT_FOUND) {
+      const char* error_code = toolkit::NvAPI_Status_to_cstr(ret);
+      printf(error_code);
       printf(
+          "\n"
           "No GSync Devices found on this system (rest of this application "
           "requires this)\n");
+      printf("\n");
+
+    } else {
+      printf("NvAPI Error: ");
+      printf(toolkit::NvAPI_Status_to_cstr(ret));
     }
     return -1;
   }
