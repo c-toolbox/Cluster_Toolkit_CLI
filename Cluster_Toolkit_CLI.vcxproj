@@ -96,6 +96,7 @@
     <ClCompile Include="apps\cli\main.cpp" />
     <ClCompile Include="src\argumentparser.cpp" />
     <ClCompile Include="src\gsync_sysinfo.cpp" />
+    <ClCompile Include="src\nvapi_printer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\argumentparser.h" />
