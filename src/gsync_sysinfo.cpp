@@ -14,17 +14,25 @@ GSyncSysInfo::GSyncSysInfo() {}
 // Here goes info printing. Should this be printable to file?
 void GSyncSysInfo::print() const {
   printf("=========SYSTEM_INFO=========\n");
-  printf("Num GPUs                 : %d\n", num_gsync_gpus);
-  printf("Num Displays             : %d\n", num_displays);
+  printf("Num GPUs connected       : %d\n", num_gsync_gpus);
+  printf("Num Displays             : %d\n", num_gsync_displays);
   for (int i = 0; i < gsync_gpus.size(); ++i) {
-    printf("==========SYNC_INFO==========\n");
-    printf("Gpu Handle               : 0x%x\n",
-           gsync_gpus[i].hPhysicalGpu);
+    printf("==========GPU_INFO===========\n");
+    printf("Gpu Handle               : 0x%x\n", gsync_gpus[i].hPhysicalGpu);
+    printf("Connector                : %s\n",
+           g_connector[gsync_gpus[i].connector]);
     printf("Is Synced                : %d\n", sync_status_params[i].bIsSynced);
     printf("Is StereoSynced          : %d\n",
            sync_status_params[i].bIsStereoSynced);
     printf("Is Sync Signal avail     : %d\n",
            sync_status_params[i].bIsSyncSignalAvailable);
+  }
+  for (int i = 0; i < gsync_displays.size(); ++i) {
+    printf("========DISPLAY_INFO=========\n");
+    printf("Display [Num:Id]         : [%d:0x%x]\n", i, gsync_displays[i].displayId);
+    printf("Is Masterable?           : %d\n", gsync_displays[i].isMasterable);
+    printf("Sync State               : %s\n",
+           g_dispSyncState[gsync_displays[i].syncState]);
   }
   printf("=======CONTROL_PARAMS========\n");
   printf("Polarity                 : %d\n", (NvU32)control_params.polarity);
@@ -73,7 +81,7 @@ void GSyncSysInfo::query_sync_status(NvGSyncDeviceHandle device_handle) {
 
   // Retrieve amount of gsync gpus & displays:
   ret = NvAPI_GSync_GetTopology(device_handle, &num_gsync_gpus, nullptr,
-                                &num_displays, nullptr);
+                                &num_gsync_displays, nullptr);
   if (ret != NVAPI_OK) {
     print_NvAPI_Status(ret);
     printf("Error getting number of gsync gpus and displays\n");
@@ -105,6 +113,18 @@ void GSyncSysInfo::query_sync_status(NvGSyncDeviceHandle device_handle) {
              gsync_gpu.hPhysicalGpu);
     }
     sync_status_params.push_back(status);
+  }
+
+  // Retreive displays
+  gsync_displays.resize(num_gsync_displays);
+  for (auto& display : gsync_displays) {
+    display.version = NV_GSYNC_DISPLAY_VER;
+  }
+  ret = NvAPI_GSync_GetTopology(device_handle, nullptr, nullptr,
+                                &num_gsync_displays, gsync_displays.data());
+  if (ret != NVAPI_OK) {
+    print_NvAPI_Status(ret);
+    printf("Error querying gsync display data\n");
   }
 }
 

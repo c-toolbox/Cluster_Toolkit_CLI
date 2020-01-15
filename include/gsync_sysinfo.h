@@ -15,9 +15,11 @@ class GSyncSysInfo {
   void query_control_params(NvGSyncDeviceHandle device_handle);
   void query_status_params(NvGSyncDeviceHandle device_handle);
   void query_sync_status(NvGSyncDeviceHandle device_handle);
+  NvU32 num_gsync_devices = 0;
   NvU32 num_gsync_gpus = 0;
-  NvU32 num_displays = 0;
+  NvU32 num_gsync_displays = 0;
 
+  std::vector<NV_GSYNC_DISPLAY> gsync_displays;
   std::vector<NV_GSYNC_GPU> gsync_gpus;
   // sync_status_param is per gsync gpu
   std::vector<NV_GSYNC_STATUS> sync_status_params;
