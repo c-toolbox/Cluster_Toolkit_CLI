@@ -19,7 +19,7 @@ void GSyncSysInfo::print() const {
   for (int i = 0; i < gsync_gpus.size(); ++i) {
     printf("==========SYNC_INFO==========\n");
     printf("Gpu Handle               : 0x%x\n",
-           (NvU32)gsync_gpus[i].hPhysicalGpu);
+           gsync_gpus[i].hPhysicalGpu);
     printf("Is Synced                : %d\n", sync_status_params[i].bIsSynced);
     printf("Is StereoSynced          : %d\n",
            sync_status_params[i].bIsStereoSynced);
@@ -102,7 +102,7 @@ void GSyncSysInfo::query_sync_status(NvGSyncDeviceHandle device_handle) {
     if (ret != NVAPI_OK) {
       print_NvAPI_Status(ret);
       printf("Error querying gsync sync status on GPU handle 0x%x\n",
-             (NvU32)gsync_gpu.hPhysicalGpu);
+             gsync_gpu.hPhysicalGpu);
     }
     sync_status_params.push_back(status);
   }
