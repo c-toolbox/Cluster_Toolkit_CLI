@@ -84,14 +84,14 @@ void GSyncSysInfo::query_sync_status(NvGSyncDeviceHandle device_handle) {
 
   // Retrieve gsync_gpu data
   gsync_gpus.resize(num_gsync_gpus);
+  for (auto& gsync_gpu : gsync_gpus) {
+    gsync_gpu.version = NV_GSYNC_GPU_VER;
+  }
   ret = NvAPI_GSync_GetTopology(device_handle, &num_gsync_gpus,
                                 gsync_gpus.data(), nullptr, nullptr);
   if (ret != NVAPI_OK) {
     print_NvAPI_Status(ret);
     printf("Error getting gsync gpu pointers\n");
-    // TODO: Revise exit conditions, this might not be a critical failure.
-    // Consider using error return values / exceptions
-    exit(1);
   }
 
   for (const auto& gsync_gpu : gsync_gpus) {
