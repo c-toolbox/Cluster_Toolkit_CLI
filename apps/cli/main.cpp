@@ -1,8 +1,13 @@
 #include <gsync_sysinfo.h>
 #include <nvapi.h>
 #include <nvapi_printer.h>
+#include <argumentparser.h>
+
 
 int main(int argc, char** argv) {
+  toolkit::ArgumentParser parser;
+  parser.acceptArgs(argc, argv);
+
   NvAPI_Status ret = NVAPI_OK;
   ret = NvAPI_Initialize();
   if (ret != NVAPI_OK) {
